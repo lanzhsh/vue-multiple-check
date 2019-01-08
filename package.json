@@ -1,7 +1,7 @@
 {
-  "name": "vue-crop",
-  "description": "Vue component with crop",
-  "version": "1.0.0",
+  "name": "vue-multiple-check",
+  "description": "Vue component with multiple check",
+  "version": "1.0.1",
   "author": "lanzhsh",
   "keywords": [
     "vue",
