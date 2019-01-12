@@ -10,9 +10,7 @@
           >
           <p class="one-text" @click="openTwoCheck(oneIndex)">
             <span class="text">{{oneItem[oneCheckKey]}}</span>
-            <img src="right-arrow-sel.png" 
-            v-if="oneCheckFlag[oneIndex].showTwoFlag" alt>
-            <img src="right-arrow.png" v-else alt>
+            <span :class="['right-arrow',{'right-arrow-sel':oneCheckFlag[oneIndex].showTwoFlag}]">〉</span>
           </p>
           <div class="check-two" v-if="oneCheckFlag[oneIndex].showTwoFlag">二级选项
             <ul class="two-list">
@@ -55,51 +53,6 @@ export default {
 
   data() {
     return {
-      // oneCheckData: [
-      //   {
-      //     id: 1,
-      //     name: "湖北省",
-      //     content: [
-      //       { id: 1, name: "武汉市" },
-      //       { id: 2, name: "黄冈市" },
-      //       { id: 3, name: "荆门市" }
-      //     ]
-      //   },
-      //   {
-      //     id: 2,
-      //     name: "广东省",
-      //     content: [
-      //       { id: 1, name: "广州市" },
-      //       { id: 2, name: "深圳市" },
-      //       { id: 3, name: "佛山市" }
-      //     ]
-      //   },
-      //   {
-      //     id: 3,
-      //     name: "江西省",
-      //     content: [
-      //       { id: 1, name: "南昌市" },
-      //       { id: 2, name: "赣州市" },
-      //       { id: 3, name: "九江市" }
-      //     ]
-      //   }
-      // ], //一级复选数组
-      // oneCheckInit: [
-      //   {
-      //     id: 1,
-      //     name: "湖北省",
-      //     content: [
-      //       { id: 1, name: "武汉市" },
-      //       { id: 2, name: "黄冈市" },
-      //       { id: 3, name: "荆门市" }
-      //     ]
-      //   },
-      //   {
-      //     id: 2,
-      //     name: "广东省",
-      //     content: [{ id: 1, name: "广州市" }, { id: 2, name: "深圳市" }]
-      //   }
-      // ],
       oneCheckDataCopy: [], //中间值只包含一级id
       oneCheckKey: "name",
       twoCheckKey: "content",
@@ -111,7 +64,6 @@ export default {
   created() {
     let checkFlag = [],
       oneCheckCopy = [];
-      // console.log('this.oneCheckData值为',this.oneCheckData);
     this.oneCheckData.map((item, index) => {
       this.$set(checkFlag, index, {
         oneFlag: false,
@@ -128,8 +80,6 @@ export default {
         content: []
       });
     });
-    // console.log("checkFlag值为", checkFlag);
-    // console.log("oneCheckCopy值为", oneCheckCopy);
 
     //默认显示二级第一个值
     checkFlag[0].showTwoFlag = true;
@@ -157,7 +107,7 @@ export default {
         }
       });
     });
-    // console.log("this.oneCheckFlag值为", this.oneCheckFlag);
+    
     //判断初始是否全选
     this.oneCheckFlag.map((item, index) => {
       let twoFlag = this.oneCheckFlag[index].twoFlag;
@@ -176,15 +126,14 @@ export default {
     oneCheckAll(index) {
       //将所在项对应的二级项改为true
       let twoFlag = this.oneCheckFlag[index].twoFlag;
-      this.oneCheckFlag[index].oneFlag = true;
+      this.oneCheckFlag[index].oneFlag = !this.oneCheckFlag[index].oneFlag;
       twoFlag.map((itemTwo, indexTwo) => {
-        this.$set(twoFlag, indexTwo, true);
+        this.$set(twoFlag, indexTwo, this.oneCheckFlag[index].oneFlag);
       });
       //打开二级
       this.openTwoCheck(index);
       //处理选中的值,输出选中的一级和二级id和name值
       this.getTwoCheckVal(this.oneCheckFlag);
-      // console.log('twoFlag值为',twoFlag);
     },
 
     //一级打开二级
@@ -207,12 +156,10 @@ export default {
       this.oneCheckFlag[oneIndex].oneFlag = everyTwo;
       //处理选中的值,输出选中的一级和二级id和name值
       this.getTwoCheckVal(this.oneCheckFlag);
-      console.log(this.oneCheckFlag);
     },
 
     //得到二级选中值
     getTwoCheckVal(data) {
-      // console.log("data值为", data);
       this.twoCheckVal = JSON.parse(JSON.stringify(this.oneCheckDataCopy));
       data.map((item, index) => {
         item.twoFlag.map((twoItem, twoIndex) => {
@@ -231,7 +178,6 @@ export default {
         itemFilter.content.length && checkVal.push(itemFilter);
       });
       this.twoCheckVal = JSON.parse(JSON.stringify(checkVal));
-      // console.log("this.twoCheckVal值为", this.twoCheckVal);
     }
   }
 };
@@ -267,13 +213,17 @@ export default {
   .one-text {
     display: inline-block;
     cursor: pointer;
-    span {
+    span.text {
       display: inline-block;
       width: 106px;
     }
     img {
       width: 12px;
       height: 12px;
+    }
+    .right-arrow-sel{
+      color:#409EFF;
+      font-weight:700;
     }
   }
 
