@@ -6,7 +6,8 @@
   "keywords": [
     "vue",
     "component",
-    "multiple-check"
+    "multiple-check",
+    "across-the-selected"
   ],
   "main": "dist/vue-multiple-check.min.js",
   "scripts": {
@@ -43,7 +44,7 @@
     "webpack": "^2.2.0",
     "webpack-dev-server": "^2.2.0"
   },
-  "repository": {
+  "repository": { 
     "type": "git",
     "url": "git+https://github.com/lanzhsh/vue-multiple-check.git"
   },
