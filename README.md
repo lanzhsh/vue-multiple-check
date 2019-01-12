@@ -1,4 +1,4 @@
-> vue clock component
+> vue multiple check component
 ![](./vue-multiple-check.gif)
 
 ## Install
@@ -88,3 +88,5 @@ export default {
 };
 </script>
 ```
+## project
+[项目中使用请戳](https://github.com/lanzhsh/vue-demo/blob/master/src/page/tableClassify/MultiCheck.vue)
